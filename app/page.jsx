@@ -37,7 +37,7 @@ function page() {
 
  
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-gray-200">
       {/* Left side users */}
       <div className="flex-shrink-0 w-3/12">
         <Users userData={user} setSelectedChatroom={setSelectedChatroom}/>
