@@ -6,6 +6,7 @@ import { getAuth, signOut } from 'firebase/auth';
 import UsersCard from './UserCard';
 import { useRouter } from "next/navigation";
 import { toast } from 'react-hot-toast';
+import Notes from "./Notes";
 
 function Users({ userData,setSelectedChatroom }) {
   const [activeTab, setActiveTab] = useState('chatrooms');
@@ -13,6 +14,7 @@ function Users({ userData,setSelectedChatroom }) {
   const [loading2, setLoading2] = useState(false);
   const [users, setUsers] = useState([]);
   const [userChatrooms, setUserChatrooms] = useState([]);
+  
   const router = useRouter();
   const auth = getAuth(app);
   
@@ -20,6 +22,7 @@ function Users({ userData,setSelectedChatroom }) {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
 
   //get all users
   useEffect(() => {
@@ -59,7 +62,7 @@ const createChat = async (user) => {
   try {
     const existingChatroomsSnapshot = await getDocs(existingChatroomsQuery);
 
-    if (existingChatroomsSnapshot.docs.length > 0) {
+    if (existingChatroomsSnapshot.docs.length) {
       // Chatroom already exists, handle it accordingly (e.g., show a message)
       console.log('Chatroom already exists for these users.');
       toast.error('Chatroom already exists for these users.');
@@ -119,6 +122,12 @@ const logoutClick = () => {
           Users
         </button>
         <button
+          className={`btn btn-outline`}
+          onClick={{}}
+        >
+          Notes
+        </button>
+        <button
           className={`btn btn-outline ${activeTab === 'chatrooms' ? 'btn-primary' : ''}`}
           onClick={() => handleTabClick('chatrooms')}
         >
@@ -133,6 +142,8 @@ const logoutClick = () => {
       </div>
 
       <div>
+    
+
         {activeTab === 'chatrooms' && (
           <>
             <h1 className='px-4 text-base font-semibold'>Chatrooms</h1>
@@ -171,6 +182,7 @@ const logoutClick = () => {
             }
             {
               users.map((user) => (
+                
                 <div key={user.id} onClick={()=>{createChat(user)}}>
                  {user.id !== userData?.id &&
                 <UsersCard
