@@ -13,7 +13,7 @@ import {
 } from 'firebase/firestore';
 import { firestore, auth } from '@/lib/firebase';
 
-function Notes({ userId }) {
+function Notes() {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState({ name: ''});
   const user = auth.currentUser;

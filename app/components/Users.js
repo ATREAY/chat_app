@@ -25,9 +25,10 @@ function Users({ userData, setSelectedChatroom, setShowNotes }) {
     setShowNotes(false);
   };
 
-  const handleNotesClick = () => {
+  const handleNotesClick = (tab) => {
     // Show the notes section
     setShowNotes(true);
+    setActiveTab(tab);
   };
 
   //get all users
@@ -128,8 +129,8 @@ const logoutClick = () => {
           Users
         </button>
         <button
-          className={`btn btn-outline ${showNotes ? 'btn-primary' : ''}`}
-          onClick={() => handleNotesClick()}
+          className={`btn btn-outline ${showNotes && activeTab === 'users' ? 'btn-primary' : ''}`}
+          onClick={() => handleNotesClick('users')}
         >
           Notes
         </button>

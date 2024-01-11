@@ -53,7 +53,7 @@ function page() {
       {/* Right side chat room */}
       <div className="flex-grow w-9/12">
       {showNotes ? (
-          <Notes userId={user.id} />
+          <Notes />
         ) :
         
           selectedChatroom ? (<>
