@@ -1,7 +1,8 @@
 import React from 'react';
 
-function UsersCard({ avatarUrl, name, latestMessage, time,type }) {
+function UsersCard({ avatarUrl, name, latestMessage, time, type }) {
   return (
+    
     <div className="flex items-center p-4 border-b border-gray-200 relative hover:cursor-pointer">
 
       {/* Avatar on the left */}
@@ -35,6 +36,8 @@ function UsersCard({ avatarUrl, name, latestMessage, time,type }) {
       
 
     </div>
+    
+    
   );
 }
 

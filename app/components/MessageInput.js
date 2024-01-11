@@ -4,7 +4,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/
 import { app } from '@/lib/firebase';
 import EmojiPicker from 'emoji-picker-react';
 
-function MessageInput({ sendMessage, message, setMessage,image,setImage }) {
+function MessageInput({ sendMessage, message, setMessage, image, setImage }) {
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -65,12 +65,12 @@ function MessageInput({ sendMessage, message, setMessage,image,setImage }) {
 
   return (
     <div className='relative flex items-center p-4 border-t border-gray-200'>
-      <FaPaperclip
+      {/* <FaPaperclip
         onClick={() => document.getElementById('my_modal_3').showModal()}
         className={`${image ? "text-blue-500":"text-gray-500"} mr-2 cursor-pointer`}
-      />
+      /> */}
        {/* Emoji Picker Button */}
-      <button onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+      <button className='mr-2' onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
         😊
       </button>
 
@@ -85,7 +85,7 @@ function MessageInput({ sendMessage, message, setMessage,image,setImage }) {
       <FaPaperPlane onClick={() => sendMessage()} className='text-blue-500 cursor-pointer ml-2' />
 
       {showEmojiPicker && (
-        <div className='absolute right-0 bottom-full p-2'>
+        <div className='absolute right-0 bottom-full p-2 ml-2'>
           <EmojiPicker
             onEmojiClick={handleEmojiClick}
             disableAutoFocus={true}

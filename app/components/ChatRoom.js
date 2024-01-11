@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useRef} from 'react';
+import React,{useState, useEffect, useRef} from 'react';
 import MessageCard from './MessageCard';
 import MessageInput from './MessageInput';
 import { addDoc, collection,doc, serverTimestamp, onSnapshot, query, where, orderBy, updateDoc } from 'firebase/firestore';

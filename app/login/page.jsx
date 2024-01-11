@@ -56,7 +56,7 @@ function page() {
       {/*form*/}
       <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-2xl shadow-lg p-10">
     
-        <h1 className='font-secondary text-xl text-center font-semibold text-[#0b3a65ff]'>CHAT<span className='font-bold text-[#eeab63ff]'>2</span>CHAT</h1>
+        <h1 className='font-secondary text-xl text-center font-semibold text-gray-300'>CHAT APP</h1>
 
       
          {/*email*/}

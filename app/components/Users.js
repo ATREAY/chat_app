@@ -4,16 +4,17 @@ import { firestore,app } from '@/lib/firebase';
 import { collection, onSnapshot, query, addDoc, serverTimestamp,where,getDocs} from 'firebase/firestore';
 import { getAuth, signOut } from 'firebase/auth';
 import UsersCard from './UserCard';
+import Notes from './Notes';
 import { useRouter } from "next/navigation";
 import { toast } from 'react-hot-toast';
-import Notes from "./Notes";
 
-function Users({ userData,setSelectedChatroom }) {
+function Users({ userData, setSelectedChatroom, setShowNotes }) {
   const [activeTab, setActiveTab] = useState('chatrooms');
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [users, setUsers] = useState([]);
   const [userChatrooms, setUserChatrooms] = useState([]);
+  const [showNotes] = useState(false);
   
   const router = useRouter();
   const auth = getAuth(app);
@@ -21,8 +22,13 @@ function Users({ userData,setSelectedChatroom }) {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    setShowNotes(false);
   };
 
+  const handleNotesClick = () => {
+    // Show the notes section
+    setShowNotes(true);
+  };
 
   //get all users
   useEffect(() => {
@@ -114,7 +120,7 @@ const logoutClick = () => {
 
   return (
     <div className='shadow-lg h-screen overflow-auto mt-4 mb-20'>
-      <div className="flex flex-col lg:flex-row justify-between p-4 space-y-4 lg:space-y-0">
+      <div className="flex flex-col lg:flex-row justify-between p-4 space-y-4 lg:space-x-2 lg:space-y-0">
         <button
           className={`btn btn-outline ${activeTab === 'users' ? 'btn-primary' : ''}`}
           onClick={() => handleTabClick('users')}
@@ -122,8 +128,8 @@ const logoutClick = () => {
           Users
         </button>
         <button
-          className={`btn btn-outline`}
-          onClick={{}}
+          className={`btn btn-outline ${showNotes ? 'btn-primary' : ''}`}
+          onClick={() => handleNotesClick()}
         >
           Notes
         </button>
@@ -142,7 +148,6 @@ const logoutClick = () => {
       </div>
 
       <div>
-    
 
         {activeTab === 'chatrooms' && (
           <>
