@@ -14,45 +14,44 @@ import {
 import { firestore, auth } from '@/lib/firebase';
 
 function Notes() {
-  const [items, setItems] = useState([]);
-  const [newItem, setNewItem] = useState({ name: ''});
+  const [notes, setNotes] = useState([]);
+  const [newNote, setNewNote] = useState({ name: ''});
   const user = auth.currentUser;
 
-  // Add item to database
-  const addItem = async (e) => {
+  // Add notes to database
+  const addNote = async (e) => {
     e.preventDefault();
-    if (newItem.name !== '' && user) {
-      // setItems([...items, newItem]);
-      await addDoc(collection(firestore, 'items'), {
+    if (newNote.name !== '' && user) {
+      await addDoc(collection(firestore, 'notes'), {
         userId: user.uid,
-        name: newItem.name.trim(),
+        name: newNote.name.trim(),
         
       });
-      setNewItem({ name: '' });
+      setNewNote({ name: '' });
     }
   };
 
-  // Read items from database
+  // Read notes from database
   useEffect(() => {
     if (user) {
-    const q = query(collection(firestore, 'items'), where('userId', '==', user.uid));
+    const q = query(collection(firestore, 'notes'), where('userId', '==', user.uid));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let itemsArr = [];
+      let notesArr = [];
 
       querySnapshot.forEach((doc) => {
-        itemsArr.push({ ...doc.data(), id: doc.id });
+        notesArr.push({ ...doc.data(), id: doc.id });
       });
-      setItems(itemsArr);
+      setNotes(notesArr);
 
       return () => unsubscribe();
     });
   }
   }, [user]);
 
-  // Delete items from database
-  const deleteItem = async (id) => {
+  // Delete notes from database
+  const deleteNote = async (id) => {
     if (user) {
-    await deleteDoc(doc(firestore, 'items', id));
+    await deleteDoc(doc(firestore, 'notes', id));
     }
   };
 
@@ -63,15 +62,15 @@ function Notes() {
         <div className='bg-slate-800 p-4 rounded-lg'>
           <form className='grid grid-cols-6 items-center text-white'>
             <input
-              value={newItem.name}
-              onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+              value={newNote.name}
+              onChange={(e) => setNewNote({ ...newNote, name: e.target.value })}
               className='col-span-5 p-3 border'
               type='text'
-              placeholder='Enter Note'
+              placeholder='Enter a Note'
             />
             
             <button
-              onClick={addItem}
+              onClick={addNote}
               className='text-white bg-slate-950 hover:bg-slate-900 p-3 text-xl ml-8'
               type='submit'
             >
@@ -79,16 +78,16 @@ function Notes() {
             </button>
           </form>
           <ul>
-            {items.map((item, id) => (
+            {notes.map((note, id) => (
               <li
                 key={id}
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className='normal-case'>{item.name}</span>
+                  <span className='normal-case'>{note.name}</span>
                 </div>
                 <button
-                  onClick={() => deleteItem(item.id)}
+                  onClick={() => deleteNote(note.id)}
                   className='ml-10 p-4 border-l-2 border-slate-900 hover:bg-slate-900 w-16'
                 >
                   X
