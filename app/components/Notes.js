@@ -85,7 +85,7 @@ function Notes({ userId }) {
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className='capitalize'>{item.name}</span>
+                  <span className='normal-case'>{item.name}</span>
                 </div>
                 <button
                   onClick={() => deleteItem(item.id)}
